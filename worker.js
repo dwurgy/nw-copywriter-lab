@@ -1,9 +1,9 @@
 // NW Copywriter Lab — Cloudflare Worker
 // Proxies requests to Gemini API. API key stored as Worker secret: GEMINI_API_KEY
-// Model: gemini-3.5-flash (matches the model selected in your AI Studio project)
-// Note: Gemini 2.0 Flash was retired by Google on June 1, 2026 — do not use it.
+// Model: gemini-2.5-flash — stable, mature, GA model recommended for production workloads.
+// (Gemini 3.5 Flash is newer and can hit 503 "high demand" errors more often.)
 
-const MODEL = 'gemini-3.5-flash';
+const MODEL = 'gemini-2.5-flash';
 
 const SYSTEM_PROMPT = `You are a specialized technical copywriter for NW Remarketing, a hardware remarketing company. Your job is to generate Odoo-ready product copy for enterprise networking hardware. You must follow all rules below exactly.
 
@@ -98,7 +98,7 @@ export default {
           });
         }
 
-        const geminiResponse = await fetch(
+        const callGemini = () => fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${env.GEMINI_API_KEY}`,
           {
             method: 'POST',
@@ -122,9 +122,29 @@ export default {
           }
         );
 
+        // Retry on transient overload (503) — up to 3 attempts with short backoff,
+        // so a momentary Gemini demand spike never surfaces as an error to the user.
+        let geminiResponse;
+        let lastErrText = '';
+        const MAX_ATTEMPTS = 3;
+
+        for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+          geminiResponse = await callGemini();
+
+          if (geminiResponse.ok) break;
+
+          if (geminiResponse.status === 503 && attempt < MAX_ATTEMPTS) {
+            lastErrText = await geminiResponse.text();
+            await new Promise(r => setTimeout(r, 800 * attempt)); // 800ms, then 1600ms
+            continue;
+          }
+
+          lastErrText = await geminiResponse.text();
+          break;
+        }
+
         if (!geminiResponse.ok) {
-          const errText = await geminiResponse.text();
-          throw new Error(`Gemini API error ${geminiResponse.status}: ${errText}`);
+          throw new Error(`Gemini API error ${geminiResponse.status}: ${lastErrText}`);
         }
 
         const geminiData = await geminiResponse.json();
