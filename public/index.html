@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NW Copywriter Lab — Odoo Ready</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* NW Remarketing Brand Palette */
+      --brand-copper:     #d97757;
+      --brand-copper-hov: #c4673f;
+      --brand-copper-tint:#fdf1eb;
+      --brand-black:      #2d2d2b;
+      --brand-charcoal:   #3d3d3a;
+      --brand-silt:       #efeeeb;
+      --brand-offwhite:   #f8f8f6;
+
+      /* Semantic aliases */
+      --accent:        var(--brand-copper);
+      --accent-hover:  var(--brand-copper-hov);
+      --accent-light:  var(--brand-copper-tint);
+      --dark:          var(--brand-black);
+      --page-bg:       var(--brand-silt);
+      --card-bg:       #ffffff;
+      --surface:       var(--brand-offwhite);
+
+      /* Warm gray scale (derived from brand) */
+      --gray-900:  #2d2d2b;
+      --gray-700:  #3d3d3a;
+      --gray-600:  #5c5a57;
+      --gray-500:  #7a7774;
+      --gray-400:  #a8a5a1;
+      --gray-300:  #d0cdc9;
+      --gray-200:  #e5e2de;
+      --gray-100:  #f0efec;
+      --gray-50:   #f8f8f6;
+
+      /* Semantic colors */
+      --green:        #16a34a;
+      --green-bg:     #f0fdf4;
+      --green-border: #bbf7d0;
+      --amber:        #b45309;
+      --amber-bg:     #fffbeb;
+      --amber-border: #fde68a;
+      --red:          #dc2626;
+      --red-bg:       #fef2f2;
+      --red-border:   #fecaca;
+      --blue:         #1d4ed8;
+      --blue-bg:      #eff6ff;
+
+      --border:  #e2deda;
+
+      /* Typography */
+      --mono:  'Roboto Mono', 'Courier New', monospace;
+      --sans:  'Roboto', system-ui, -apple-system, sans-serif;
+      --serif: 'Source Serif 4', Georgia, serif;
+
+      --radius: 7px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--page-bg);
+      color: var(--gray-900);
+      min-height: 100vh;
+      font-size: 13px;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────── */
+    .header {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 24px;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nwr-logo {
+      height: 34px;
+      width: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+    }
+
+    .header-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .header-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .app-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+    }
+
+    .badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+
+    .app-sub {
+      font-size: 11px;
+      color: var(--gray-500);
+      letter-spacing: 0.01em;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .location {
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+    }
+
+    /* ─── WELCOME BAR ────────────────────────────────── */
+    .welcome-bar {
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--border);
+      padding: 9px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .welcome-text {
+      font-size: 11.5px;
+      color: var(--gray-500);
+      line-height: 1.55;
+      max-width: 680px;
+    }
+
+    .engine-tag {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      white-space: nowrap;
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────── */
+    .layout {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 14px;
+      padding: 14px 24px 24px;
+      max-width: 1440px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    /* ─── CARDS ──────────────────────────────────────── */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 12px;
+    }
+
+    .card:last-child { margin-bottom: 0; }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 6px;
+    }
+
+    .card-sub {
+      font-size: 11.5px;
+      color: var(--gray-500);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .label {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 7px;
+      margin-top: 14px;
+    }
+
+    .label:first-of-type { margin-top: 0; }
+
+    /* ─── TEMPLATE CHIPS ─────────────────────────────── */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .chip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    .chip:hover {
+      background: var(--accent-light);
+      border-color: #e0a080;
+    }
+
+    .chip-name {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    .chip-hint {
+      display: block;
+      font-size: 9.5px;
+      color: var(--gray-400);
+      margin-top: 1px;
+    }
+
+    /* ─── TEXTAREA ───────────────────────────────────── */
+    .textarea-wrap { position: relative; }
+
+    textarea {
+      width: 100%;
+      min-height: 175px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 11px 12px 28px;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--gray-900);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.12s;
+      background: var(--card-bg);
+    }
+
+    textarea:focus { border-color: var(--accent); }
+
+    .char-count {
+      position: absolute;
+      bottom: 9px;
+      right: 10px;
+      font-size: 10px;
+      color: var(--gray-400);
+      font-family: var(--mono);
+      pointer-events: none;
+    }
+
+    /* ─── BUTTONS ────────────────────────────────────── */
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .btn-clear {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 7px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: all 0.12s;
+    }
+
+    .btn-clear:hover {
+      background: var(--surface);
+      border-color: var(--gray-300);
+    }
+
+    .btn-generate {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 8px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--sans);
+      transition: background 0.12s;
+    }
+
+    .btn-generate:hover:not(:disabled) { background: var(--accent-hover); }
+    .btn-generate:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* ─── COMPLIANCE LIST ────────────────────────────── */
+    .compliance-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .compliance-item {
+      font-size: 11.5px;
+      color: var(--gray-600);
+      line-height: 1.45;
+      padding-left: 13px;
+      position: relative;
+    }
+
+    .compliance-item::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .compliance-item strong { color: var(--gray-900); }
+
+    /* ─── HISTORY ────────────────────────────────────── */
+    .history-empty {
+      font-size: 11px;
+      color: var(--gray-400);
+      padding: 4px 0;
+      font-style: italic;
+    }
+
+    .history-item {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 12px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      background: var(--card-bg);
+      transition: background 0.12s;
+    }
+
+    .history-item:hover { background: var(--surface); }
+
+    .history-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+
+    .history-time { font-size: 9.5px; color: var(--gray-400); }
+
+    .history-reload {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--accent);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      padding: 0;
+    }
+
+    .history-quote {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gray-700);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .history-input-hint {
+      font-size: 10px;
+      color: var(--gray-400);
+      margin-top: 1px;
+    }
+
+    /* ─── INTEGRITY BAR ──────────────────────────────── */
+    .integrity-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      margin-bottom: 12px;
+    }
+
+    .integrity-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .icard {
+      border-radius: 6px;
+      padding: 10px 11px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .icard.idle   { background: var(--surface);  border-color: var(--border); }
+    .icard.pass   { background: var(--green-bg);  border-color: var(--green-border); }
+    .icard.warn   { background: var(--amber-bg);  border-color: var(--amber-border); }
+    .icard.fail   { background: var(--red-bg);    border-color: var(--red-border); }
+
+    .icard-head {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 4px;
+    }
+
+    .icard-icon { font-size: 11px; }
+    .icard-title { font-size: 11px; font-weight: 700; }
+
+    .icard.idle .icard-title  { color: var(--gray-500); }
+    .icard.pass .icard-title  { color: #15803d; }
+    .icard.warn .icard-title  { color: #92400e; }
+    .icard.fail .icard-title  { color: #991b1b; }
+
+    .icard-desc { font-size: 10px; line-height: 1.45; }
+
+    .icard.idle .icard-desc  { color: var(--gray-400); }
+    .icard.pass .icard-desc  { color: #166534; }
+    .icard.warn .icard-desc  { color: #78350f; }
+    .icard.fail .icard-desc  { color: #7f1d1d; }
+
+    /* ─── OUTPUT CARDS ───────────────────────────────── */
+    .out-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+
+    .out-card:last-child { margin-bottom: 0; }
+
+    .out-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 3px;
+    }
+
+    .out-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .out-sub {
+      font-size: 11px;
+      color: var(--gray-500);
+      margin-bottom: 13px;
+    }
+
+    .btn-copy {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 5px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      font-family: var(--sans);
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.12s;
+    }
+
+    .btn-copy:hover { background: var(--surface); border-color: var(--gray-300); }
+    .btn-copy.copied { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
+
+    /* ─── PLAIN TEXT BOX ─────────────────────────────── */
+    .plain-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 13px 14px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      line-height: 1.75;
+      color: var(--gray-700);
+      white-space: pre-wrap;
+      word-break: break-word;
+      min-height: 72px;
+    }
+
+    /* ─── FORMATTED PREVIEW ──────────────────────────── */
+    .formatted-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 16px;
+      font-family: var(--serif);
+      font-size: 13.5px;
+      line-height: 1.8;
+      color: var(--gray-700);
+      min-height: 72px;
+    }
+
+    .formatted-box strong { font-weight: 700; color: var(--gray-900); }
+
+    /* ─── QUOTE DISPLAY ──────────────────────────────── */
+    .quote-box {
+      border-left: 4px solid #3b82f6;
+      background: var(--blue-bg);
+      padding: 12px 16px;
+      border-radius: 0 5px 5px 0;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 500;
+      color: #1e40af;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .placeholder {
+      font-family: var(--sans);
+      font-size: 11.5px;
+      color: var(--gray-300);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* ─── SPECS TABLE ────────────────────────────────── */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .specs-table th {
+      background: var(--surface);
+      padding: 8px 12px;
+      text-align: left;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .specs-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 11.5px;
+    }
+
+    .specs-table tr:last-child td { border-bottom: none; }
+
+    .specs-table td:first-child {
+      font-weight: 500;
+      color: var(--gray-500);
+      width: 38%;
+    }
+
+    .specs-table td[contenteditable="true"] {
+      color: var(--gray-900);
+      outline: none;
+    }
+
+    .specs-table td[contenteditable="true"]:focus {
+      background: #fffbeb;
+    }
+
+    /* ─── SPINNER ────────────────────────────────────── */
+    .spinner-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 20px;
+      font-size: 12px;
+      color: var(--gray-400);
+    }
+
+    .spinner {
+      width: 15px;
+      height: 15px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    footer {
+      background: var(--brand-black);
+      border-top: 1px solid var(--border);
+      padding: 16px 24px;
+      text-align: center;
+      margin-top: 4px;
+    }
+
+    footer p {
+      font-size: 10.5px;
+      color: var(--gray-500);
+      line-height: 1.65;
+    }
+
+    footer p span.accent { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-main">
+    <div class="header-left">
+      <!-- NWR Primary Silt Logo -->
+      <svg class="nwr-logo" viewBox="0 0 1500 723" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+        <g transform="matrix(1,0,0,1,-2197.813756,-2.433376)">
+          <g transform="matrix(0.75,0,0,0.3615,2197.813756,-738.641624)">
+            <rect x="0" y="2050" width="2000" height="2000" style="fill:none;"/>
+            <clipPath id="_clip1"><rect x="0" y="2050" width="2000" height="2000"/></clipPath>
+            <g clip-path="url(#_clip1)">
+              <g transform="matrix(1.281714,0,0,2.659157,-281.713563,-4980.6997)">
+                <g transform="matrix(2.417378,0,0,9.626667,-391.657192,-41829.236111)">
+                  <path d="M898.438,4619.792L898.438,4697.917L695.312,4697.917L695.312,4619.792L898.438,4619.792ZM836.846,4641.903C823.73,4641.903 811.637,4642.696 800.566,4644.282C789.496,4645.869 779.99,4648.052 772.048,4650.832L771.687,4649.744L769.701,4642.809L722.953,4642.809L722.953,4691.851L773.131,4691.851L773.131,4662.39C775.417,4661 778.305,4659.791 781.795,4658.764C785.284,4657.736 789.496,4656.89 794.429,4656.225C798.521,4655.651 803.183,4655.221 808.418,4654.934C813.652,4654.647 819.518,4654.503 826.016,4654.503C832.273,4654.503 838.862,4654.601 845.781,4654.798C852.7,4654.994 859.468,4655.289 866.086,4655.681L873.487,4643.126C869.516,4642.824 864.312,4642.545 857.874,4642.288C851.436,4642.031 844.427,4641.903 836.846,4641.903Z" style="fill:#2d2d2b;"/>
+                </g>
+                <g transform="matrix(17.871996,0,0,17.871996,-12501.058301,-12533.058009)">
+                  <path d="M711.776,888.021L718.587,888.021L718.587,869.246C718.815,868.888 719.067,868.563 719.344,868.27C719.621,867.977 719.93,867.725 720.272,867.513C720.695,867.22 721.179,867 721.724,866.854C722.27,866.707 722.868,866.634 723.519,866.634C724.3,866.634 725,866.711 725.618,866.866C726.237,867.021 726.766,867.293 727.205,867.684C727.645,868.075 727.983,868.608 728.219,869.283C728.455,869.958 728.573,870.817 728.573,871.859L728.573,888.021L735.36,888.021L735.36,871.761C735.36,869.84 735.136,868.209 734.688,866.866C734.241,865.523 733.618,864.421 732.821,863.558C732.007,862.712 731.047,862.093 729.94,861.702C728.833,861.312 727.612,861.117 726.278,861.117C725.236,861.117 724.251,861.263 723.324,861.556C722.396,861.849 721.541,862.272 720.76,862.826C720.304,863.151 719.873,863.517 719.466,863.924C719.059,864.331 718.685,864.779 718.343,865.267L717.928,861.605L711.776,861.605L711.776,888.021Z" style="fill:#2d2d2b;fill-rule:nonzero;"/>
+                  <path d="M743.734,888.021L749.691,888.021L752.498,873.91L753.035,871.224L753.597,873.91L756.502,888.021L762.459,888.021L767.196,861.605L760.97,861.605L759.017,877.181L758.675,879.744L758.211,877.23L755.355,861.605L750.814,861.605L747.957,877.303L747.493,879.818L747.176,877.303L745.199,861.605L738.997,861.605L743.734,888.021Z" style="fill:#2d2d2b;fill-rule:nonzero;"/>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </svg>
+
+      <div class="header-divider"></div>
+
+      <div class="header-title">
+        <div class="header-title-row">
+          <span class="app-name">NW Copywriter Lab</span>
+          <span class="badge">Odoo Ready</span>
+        </div>
+        <span class="app-sub">Enterprise Hardware Descriptions &amp; Sterile Specifications</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <span class="location">Willamette Valley &bull; OR</span>
+    </div>
+  </div>
+</header>
+
+<!-- WELCOME BAR -->
+<div class="welcome-bar">
+  <p class="welcome-text">Welcome to the specialized NW Copywriter Lab. This tool uses natural language models coupled with strict Pacific Northwest NWR guidelines to draft objective, high-density telemetry spec strings, quotation formats, and Odoo ERP-safe narratives.</p>
+  <span class="engine-tag">Minimalist Accuracy Engine</span>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="layout">
+
+  <!-- LEFT COLUMN -->
+  <div>
+    <!-- Input Card -->
+    <div class="card">
+      <div class="card-title">✦ Hardware Telemetry &amp; Specifications Input</div>
+      <p class="card-sub">Paste catalog listings, Cisco inventory commands, PDF spec sheets, or hardware part numbers to formulate the clean Odoo representation.</p>
+
+      <div class="label" style="margin-top:0;">Approved Templates Overview</div>
+      <div class="chips">
+        <div class="chip" onclick="useTemplate('Cisco Nexus N9K-C93180YC-FX')">
+          <span class="chip-name">Cisco Nexus 93180YC-FX</span>
+          <span class="chip-hint">Cisco Nexus N9K-C931…</span>
+        </div>
+        <div class="chip" onclick="useTemplate('Juniper EX4300-48T')">
+          <span class="chip-name">Juniper EX4300-48T</span>
+          <span class="chip-hint">Juniper EX4300-48T s…</span>
+        </div>
+        <div class="chip" onclick="useTemplate('Cisco Catalyst C9300-48U')">
+          <span class="chip-name">Cisco Catalyst 9300-48U</span>
+          <span class="chip-hint">Cisco Catalyst C9300…</span>
+        </div>
+      </div>
+
+      <div class="textarea-wrap">
+        <textarea id="inputArea" placeholder="Paste part number, full specs, or catalog snippet here…" oninput="onInput()"></textarea>
+        <span class="char-count" id="charCount">0 characters</span>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-clear" onclick="clearInput()">Clear Input</button>
+        <button class="btn-generate" id="generateBtn" onclick="generate()">
+          Generate Copy &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Compliance Card -->
+    <div class="card">
+      <div class="card-title">ⓘ NWR Odoo Compliance Standards</div>
+      <div class="compliance-list">
+        <div class="compliance-item"><strong>No Bullets or Dashes:</strong> Double line spacing paragraphs are required. Bullets trigger system formatting parse faults in Odoo CSV.</div>
+        <div class="compliance-item"><strong>Single-Value Constraint:</strong> Main port speed only in the specifications table (e.g. 10Gb). Uplinks are restricted to narrative text details.</div>
+        <div class="compliance-item"><strong>Objective Minimalist Tone:</strong> Focus purely on real architecture metrics (latency, bandwidth) with zero subjective fluff or superlatives.</div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="label">Generation History</div>
+    <div id="historyList"></div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div>
+
+    <!-- Integrity Bar -->
+    <div class="integrity-bar">
+      <div class="label" style="margin-top:0; margin-bottom:10px;">Odoo Integrity Standards Checking</div>
+      <div class="integrity-grid">
+        <div class="icard idle" id="ic-markdown">
+          <div class="icard-head">
+            <span class="icard-icon" id="ic-markdown-icon">○</span>
+            <span class="icard-title" id="ic-markdown-title">Odoo Compatible</span>
+          </div>
+          <div class="icard-desc" id="ic-markdown-desc">Awaiting generation to scan for markdown bullet characters.</div>
+        </div>
+        <div class="icard idle" id="ic-rate">
+          <div class="icard-head">
+            <span class="icard-icon" id="ic-rate-icon">○</span>
+            <span class="icard-title" id="ic-rate-title">Primary Rate Spec</span>
+          </div>
+          <div class="icard-desc" id="ic-rate-desc">Awaiting generation to verify single-value parameter constraint.</div>
+        </div>
+        <div class="icard idle" id="ic-voice">
+          <div class="icard-head">
+            <span class="icard-icon" id="ic-voice-icon">○</span>
+            <span class="icard-title" id="ic-voice-title">Pure Engineering Voice</span>
+          </div>
+          <div class="icard-desc" id="ic-voice-desc">Awaiting generation to verify minimalist objective copy requirements.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ecommerce Narrative -->
+    <div class="out-card">
+      <div class="out-header">
+        <div>
+          <div class="out-title">Ecommerce Narrative</div>
+        </div>
+        <button class="btn-copy" id="btn-ecom" onclick="copySection('ecom')">📋 Copy for Odoo Ecom</button>
+      </div>
+      <p class="out-sub">Objective summaries with double layout paragraph spacing</p>
+
+      <div class="label">Plain Text Output</div>
+      <div class="plain-box" id="ecom-plain"><span class="placeholder">Generate copy to see plain text output</span></div>
+
+      <div class="label">Formatted Live Preview (Source Serif 4)</div>
+      <div class="formatted-box" id="ecom-formatted"><span class="placeholder">Formatted preview will appear here</span></div>
+    </div>
+
+    <!-- Quotation Description -->
+    <div class="out-card">
+      <div class="out-header">
+        <div>
+          <div class="out-title">Quotation Description</div>
+        </div>
+        <button class="btn-copy" id="btn-quote" onclick="copySection('quote')">📋 Copy Quote Summary</button>
+      </div>
+      <p class="out-sub">Single line, high-density listing summary title suitable for eBay</p>
+      <div class="quote-box" id="quote-output">
+        <span class="placeholder">Quotation summary will appear here after generation</span>
+      </div>
+    </div>
+
+    <!-- Specs Table -->
+    <div class="out-card">
+      <div class="out-header">
+        <div>
+          <div class="out-title">Sterile Specifications Table</div>
+        </div>
+        <button class="btn-copy" id="btn-specs" onclick="copySection('specs')">📋 Copy Specs Text</button>
+      </div>
+      <p class="out-sub">Strict parameter mapping aligned with NWR lookup schema</p>
+      <div id="specs-container">
+        <div style="display:flex;align-items:center;justify-content:center;min-height:72px;">
+          <span class="placeholder">Specifications table will appear here</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /right col -->
+</div><!-- /layout -->
+
+<footer>
+  <p>© 2026 NW Remarketing Inc. &nbsp;&middot;&nbsp; Prototyped and developed in Google AI Studio by David Wurgler &nbsp;&middot;&nbsp; Rebuilt and deployed for production with <span class="accent">Claude by Anthropic</span> &nbsp;&middot;&nbsp; Willamette Valley Pacific Northwest Enterprise Networking Hub &nbsp;&middot;&nbsp; All copywriting patterns output-verified for Odoo v19 CSV import compliance.</p>
+</footer>
+
+<script>
+  // ─── CONFIG ────────────────────────────────────────────────────────────────
+  const WORKER_URL = '/api/generate';
+
+  // ─── STATE ─────────────────────────────────────────────────────────────────
+  let currentParsed = null;
+
+  // ─── INPUT ─────────────────────────────────────────────────────────────────
+  function onInput() {
+    const len = document.getElementById('inputArea').value.length;
+    document.getElementById('charCount').textContent = len + ' characters';
+  }
+
+  function clearInput() {
+    document.getElementById('inputArea').value = '';
+    onInput();
+  }
+
+  function useTemplate(text) {
+    document.getElementById('inputArea').value = text;
+    onInput();
+  }
+
+  // ─── GENERATE ──────────────────────────────────────────────────────────────
+  async function generate() {
+    const input = document.getElementById('inputArea').value.trim();
+    if (!input) return;
+
+    const btn = document.getElementById('generateBtn');
+    btn.disabled = true;
+    btn.textContent = 'Generating…';
+    setLoadingState();
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ input }),
+      });
+
+      if (!res.ok) throw new Error('Worker returned ' + res.status);
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+
+      currentParsed = parseResponse(data.text);
+      renderOutput(currentParsed);
+      addToHistory(input, currentParsed, data.text);
+
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Generate Copy &rarr;';
+    }
+  }
+
+  // ─── PARSE ─────────────────────────────────────────────────────────────────
+  function parseResponse(text) {
+    text = text.replace(/\r\n/g, '\n').trim();
+    const result = { ecom: '', quote: '', specs: {} };
+
+    const ecomRx  = /(?:Ecommerce Description|Ecommerce Narrative)\s*:\s*\n([\s\S]*?)(?=\n(?:Quotation Description|Specifications|Sterile Specifications)\s*:|$)/i;
+    const quoteRx = /Quotation Description\s*:\s*\n([\s\S]*?)(?=\n(?:Specifications|Sterile Specifications)\s*:|$)/i;
+    const specsRx = /(?:Specifications|Sterile Specifications|Specs(?:\s+Table)?)\s*:\s*\n([\s\S]*)$/i;
+
+    const em = text.match(ecomRx);
+    const qm = text.match(quoteRx);
+    const sm = text.match(specsRx);
+
+    if (em) result.ecom  = em[1].trim();
+    if (qm) result.quote = qm[1].trim();
+    if (sm) {
+      for (const line of sm[1].trim().split('\n')) {
+        const idx = line.indexOf(':');
+        if (idx > 0) {
+          const k = line.slice(0, idx).trim();
+          const v = line.slice(idx + 1).trim();
+          if (k && v) result.specs[k] = v;
+        }
+      }
+    }
+
+    if (!result.ecom && !result.quote && !Object.keys(result.specs).length) result.ecom = text;
+    return result;
+  }
+
+  // ─── RENDER ─────────────────────────────────────────────────────────────────
+  function setLoadingState() {
+    const loader = '<div class="spinner-wrap"><div class="spinner"></div> Generating…</div>';
+    document.getElementById('ecom-plain').innerHTML = loader;
+    document.getElementById('ecom-formatted').innerHTML = loader;
+    document.getElementById('quote-output').innerHTML = loader;
+    document.getElementById('specs-container').innerHTML = loader;
+    resetIntegrity();
+  }
+
+  function showError(msg) {
+    const err = `<div style="color:var(--red);font-size:12px;padding:12px;">Error: ${esc(msg)}</div>`;
+    document.getElementById('ecom-plain').innerHTML = err;
+    ['ecom-formatted','quote-output','specs-container'].forEach(id => document.getElementById(id).innerHTML = '');
+  }
+
+  function renderOutput(p) {
+    document.getElementById('ecom-plain').textContent = p.ecom || '(No ecommerce description generated)';
+    document.getElementById('ecom-formatted').innerHTML = toFormattedHtml(p.ecom || '');
+
+    const qEl = document.getElementById('quote-output');
+    if (p.quote) {
+      qEl.textContent = p.quote;
+      qEl.style.fontStyle = 'normal';
+    } else {
+      qEl.innerHTML = '<span class="placeholder">No quotation description generated</span>';
+    }
+
+    renderSpecsTable(p.specs);
+    runIntegrity(p);
+  }
+
+  function toFormattedHtml(text) {
+    return text
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>');
+  }
+
+  function renderSpecsTable(specs) {
+    const el = document.getElementById('specs-container');
+    if (!specs || !Object.keys(specs).length) {
+      el.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;min-height:72px;"><span class="placeholder">No specifications parsed</span></div>';
+      return;
+    }
+    let html = `<table class="specs-table"><thead><tr><th>Standard NWR Attribute</th><th>Assigned Target Value (Modify Inline If Needed)</th></tr></thead><tbody>`;
+    for (const [k,v] of Object.entries(specs)) {
+      html += `<tr><td>${esc(k)}</td><td contenteditable="true" spellcheck="false">${esc(v)}</td></tr>`;
+    }
+    html += '</tbody></table>';
+    el.innerHTML = html;
+  }
+
+  // ─── INTEGRITY ──────────────────────────────────────────────────────────────
+  function resetIntegrity() {
+    ['markdown','rate','voice'].forEach(id => {
+      document.getElementById('ic-'+id).className = 'icard idle';
+      document.getElementById('ic-'+id+'-icon').textContent = '○';
+    });
+  }
+
+  function setIC(id, status, title, desc) {
+    const icons = { pass:'✓', warn:'⚠', fail:'✗' };
+    document.getElementById('ic-'+id).className = 'icard '+status;
+    document.getElementById('ic-'+id+'-icon').textContent = icons[status]||'○';
+    document.getElementById('ic-'+id+'-title').textContent = title;
+    document.getElementById('ic-'+id+'-desc').textContent = desc;
+  }
+
+  function runIntegrity(p) {
+    /^[\*\-]\s/m.test(p.ecom)
+      ? setIC('markdown','warn','Odoo Compatible','Markdown bullet characters detected. May cause parse faults in Odoo CSV imports.')
+      : setIC('markdown','pass','Odoo Compatible','No markdown bullets found. Output is safe for Odoo CSV import.');
+
+    const dtr = p.specs['Data Transfer Rate'] || '';
+    if (!dtr)             setIC('rate','warn','Primary Rate Spec','Data Transfer Rate not found in specs. Verify output manually.');
+    else if (/[,\/]/.test(dtr)) setIC('rate','fail','Primary Rate Spec','Multiple values in Data Transfer Rate. Single-value constraint violated.');
+    else                  setIC('rate','pass','Primary Rate Spec','Adheres correctly to primary-speed single-value constraint.');
+
+    /\b(amazing|incredible|perfect|best-in-class|revolutionary|cutting-edge|world-class|unmatched|unparalleled|superior|exceptional|outstanding|remarkable|seamless|powerful\s+solution|robust\s+solution)\b/i.test(p.ecom)
+      ? setIC('voice','warn','Pure Engineering Voice','Possible subjective language detected. Review for marketing fluff before importing.')
+      : setIC('voice','pass','Pure Engineering Voice','Meets precise, minimalist objective networking copy requirements.');
+  }
+
+  // ─── COPY ────────────────────────────────────────────────────────────────────
+  function copySection(section) {
+    let text='', btnId='';
+    if (section==='ecom')  { text=document.getElementById('ecom-plain').textContent; btnId='btn-ecom'; }
+    if (section==='quote') { text=document.getElementById('quote-output').textContent; btnId='btn-quote'; }
+    if (section==='specs') {
+      const rows = document.querySelectorAll('.specs-table tbody tr');
+      const lines = [];
+      rows.forEach(r => {
+        const cells = r.querySelectorAll('td');
+        if (cells.length>=2) lines.push(cells[0].textContent.trim()+': '+cells[1].textContent.trim());
+      });
+      text=lines.join('\n'); btnId='btn-specs';
+    }
+
+    if (!text || text.includes('Generate copy') || text.includes('Quotation summary')) return;
+
+    const doFlash = () => {
+      const btn=document.getElementById(btnId), orig=btn.innerHTML;
+      btn.innerHTML='✓ Copied'; btn.classList.add('copied');
+      setTimeout(()=>{ btn.innerHTML=orig; btn.classList.remove('copied'); }, 2000);
+    };
+
+    navigator.clipboard.writeText(text).then(doFlash).catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      doFlash();
+    });
+  }
+
+  // ─── HISTORY ────────────────────────────────────────────────────────────────
+  function addToHistory(input, parsed, rawText) {
+    const history = getHistory();
+    history.unshift({ id:Date.now(), time:new Date().toLocaleString('en-US',{hour:'numeric',minute:'2-digit',hour12:true,month:'short',day:'numeric'}), input, quote:parsed.quote, raw:rawText });
+    if (history.length>12) history.pop();
+    localStorage.setItem('nwr_history', JSON.stringify(history));
+    renderHistory();
+  }
+
+  function getHistory() {
+    try { return JSON.parse(localStorage.getItem('nwr_history')||'[]'); }
+    catch { return []; }
+  }
+
+  function renderHistory() {
+    const list=document.getElementById('historyList'), history=getHistory();
+    if (!history.length) { list.innerHTML='<div class="history-empty">No history yet — generations will appear here.</div>'; return; }
+    list.innerHTML = history.map(e => `
+      <div class="history-item" onclick="reloadEntry(${e.id})">
+        <div class="history-meta">
+          <span class="history-time">${e.time}</span>
+          <button class="history-reload" onclick="event.stopPropagation();reloadEntry(${e.id})">Reload ↗</button>
+        </div>
+        <div class="history-quote">${esc(e.quote||e.input)}</div>
+        <div class="history-input-hint">${esc(e.input)}</div>
+      </div>`).join('');
+  }
+
+  function reloadEntry(id) {
+    const e=getHistory().find(h=>h.id===id); if (!e) return;
+    document.getElementById('inputArea').value=e.input; onInput();
+    currentParsed=parseResponse(e.raw); renderOutput(currentParsed);
+  }
+
+  // ─── UTILS ──────────────────────────────────────────────────────────────────
+  function esc(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ─── INIT ───────────────────────────────────────────────────────────────────
+  renderHistory();
+</script>
+</body>
+</html>
