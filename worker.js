@@ -80,77 +80,74 @@ Power Redundancy: Redundant (1+1)`;
 
 export default {
   async fetch(request, env) {
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    };
+    const url = new URL(request.url);
 
-    // Handle preflight
-    if (request.method === 'OPTIONS') {
-      return new Response(null, { headers: corsHeaders });
-    }
+    // API route — handles the Gemini call
+    if (url.pathname === '/api/generate') {
+      if (request.method !== 'POST') {
+        return new Response('Method not allowed', { status: 405 });
+      }
 
-    if (request.method !== 'POST') {
-      return new Response('Method not allowed', { status: 405, headers: corsHeaders });
-    }
+      try {
+        const body = await request.json();
+        const input = body?.input;
 
-    try {
-      const body = await request.json();
-      const input = body?.input;
+        if (!input || typeof input !== 'string' || input.trim().length === 0) {
+          return new Response(JSON.stringify({ error: 'Input is required.' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }
 
-      if (!input || typeof input !== 'string' || input.trim().length === 0) {
-        return new Response(JSON.stringify({ error: 'Input is required.' }), {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        const geminiResponse = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${env.GEMINI_API_KEY}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              system_instruction: {
+                parts: [{ text: SYSTEM_PROMPT }],
+              },
+              contents: [
+                {
+                  role: 'user',
+                  parts: [{ text: input.trim() }],
+                },
+              ],
+              generationConfig: {
+                temperature: 0.2,
+                maxOutputTokens: 2048,
+                topP: 0.8,
+              },
+            }),
+          }
+        );
+
+        if (!geminiResponse.ok) {
+          const errText = await geminiResponse.text();
+          throw new Error(`Gemini API error ${geminiResponse.status}: ${errText}`);
+        }
+
+        const geminiData = await geminiResponse.json();
+        const text = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+        if (!text) {
+          throw new Error('Gemini returned an empty response. The model may have flagged the input.');
+        }
+
+        return new Response(JSON.stringify({ text }), {
+          headers: { 'Content-Type': 'application/json' },
+        });
+
+      } catch (error) {
+        return new Response(JSON.stringify({ error: error.message }), {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' },
         });
       }
-
-      const geminiResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${env.GEMINI_API_KEY}`,
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            system_instruction: {
-              parts: [{ text: SYSTEM_PROMPT }],
-            },
-            contents: [
-              {
-                role: 'user',
-                parts: [{ text: input.trim() }],
-              },
-            ],
-            generationConfig: {
-              temperature: 0.2,
-              maxOutputTokens: 2048,
-              topP: 0.8,
-            },
-          }),
-        }
-      );
-
-      if (!geminiResponse.ok) {
-        const errText = await geminiResponse.text();
-        throw new Error(`Gemini API error ${geminiResponse.status}: ${errText}`);
-      }
-
-      const geminiData = await geminiResponse.json();
-      const text = geminiData?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-      if (!text) {
-        throw new Error('Gemini returned an empty response. The model may have flagged the input.');
-      }
-
-      return new Response(JSON.stringify({ text }), {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
-
-    } catch (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
     }
+
+    // Everything else — serve the static frontend (index.html, etc.)
+    return env.ASSETS.fetch(request);
   },
 };
