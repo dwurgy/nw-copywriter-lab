@@ -1,10 +1,9 @@
 // NW Copywriter Lab — Cloudflare Worker
 // Proxies requests to Gemini API. API key stored as Worker secret: GEMINI_API_KEY
-// Model: gemini-2.0-flash (verify at: https://ai.google.dev/gemini-api/docs/models)
-// Note: Google AI Studio may label models differently than their API string.
-// If "Gemini 3.5 Flash" was your Studio model, the API equivalent is likely gemini-2.0-flash or gemini-1.5-flash.
+// Model: gemini-3.5-flash (matches the model selected in your AI Studio project)
+// Note: Gemini 2.0 Flash was retired by Google on June 1, 2026 — do not use it.
 
-const MODEL = 'gemini-2.0-flash';
+const MODEL = 'gemini-3.5-flash';
 
 const SYSTEM_PROMPT = `You are a specialized technical copywriter for NW Remarketing, a hardware remarketing company. Your job is to generate Odoo-ready product copy for enterprise networking hardware. You must follow all rules below exactly.
 
