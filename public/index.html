@@ -803,10 +803,7 @@
       </div>
       <p class="out-sub">Objective summaries with double layout paragraph spacing</p>
 
-      <div class="label">Plain Text Output</div>
-      <div class="plain-box" id="ecom-plain"><span class="placeholder">Generate copy to see plain text output</span></div>
-
-      <div class="label">Formatted Live Preview (Source Serif 4)</div>
+      <div class="label">Formatted Output (Source Serif 4)</div>
       <div class="formatted-box" id="ecom-formatted"><span class="placeholder">Formatted preview will appear here</span></div>
     </div>
 
@@ -935,7 +932,6 @@
   // ─── RENDER ─────────────────────────────────────────────────────────────────
   function setLoadingState() {
     const loader = '<div class="spinner-wrap"><div class="spinner"></div> Generating…</div>';
-    document.getElementById('ecom-plain').innerHTML = loader;
     document.getElementById('ecom-formatted').innerHTML = loader;
     document.getElementById('quote-output').innerHTML = loader;
     document.getElementById('specs-container').innerHTML = loader;
@@ -944,12 +940,11 @@
 
   function showError(msg) {
     const err = `<div style="color:var(--red);font-size:12px;padding:12px;">Error: ${esc(msg)}</div>`;
-    document.getElementById('ecom-plain').innerHTML = err;
-    ['ecom-formatted','quote-output','specs-container'].forEach(id => document.getElementById(id).innerHTML = '');
+    document.getElementById('ecom-formatted').innerHTML = err;
+    ['quote-output','specs-container'].forEach(id => document.getElementById(id).innerHTML = '');
   }
 
   function renderOutput(p) {
-    document.getElementById('ecom-plain').textContent = p.ecom || '(No ecommerce description generated)';
     document.getElementById('ecom-formatted').innerHTML = toFormattedHtml(p.ecom || '');
 
     const qEl = document.getElementById('quote-output');
@@ -1020,7 +1015,7 @@
   // ─── COPY ────────────────────────────────────────────────────────────────────
   function copySection(section) {
     let text='', btnId='';
-    if (section==='ecom')  { text=document.getElementById('ecom-plain').textContent; btnId='btn-ecom'; }
+    if (section==='ecom')  { text=document.getElementById('ecom-formatted').innerText; btnId='btn-ecom'; }
     if (section==='quote') { text=document.getElementById('quote-output').textContent; btnId='btn-quote'; }
     if (section==='specs') {
       const rows = document.querySelectorAll('.specs-table tbody tr');
