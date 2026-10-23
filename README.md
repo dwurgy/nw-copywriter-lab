@@ -1,6 +1,6 @@
 # NW Copywriter Lab
 
-An internal tool built for [NW Remarketing](https://nwremarketing.com) that turns an enterprise networking hardware part number into Odoo-ready product copy: an ecommerce description, a one-line quotation description, and a standardized specifications block.
+An internal tool built for [NW Remarketing](https://nwrusa.com) that turns an enterprise networking hardware part number into Odoo-ready product copy: an ecommerce description, a one-line quotation description, and a standardized specifications block.
 
 Type in something like `Cisco Nexus N9K-C93180YC-FX` and get back copy that can be pasted straight into an Odoo product record, written in a consistent, no-fluff style for network engineers.
 
